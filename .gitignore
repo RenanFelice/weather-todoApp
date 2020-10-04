@@ -1,6 +1,5 @@
 /node_modules
 /Client/node_modules
-/Client/.pnp
 .pnp.js
 
 # testing
