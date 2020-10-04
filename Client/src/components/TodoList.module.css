@@ -1,0 +1,66 @@
+
+.todoFormInput{
+    width: 470px;
+    height: 60px;
+    font-size: 40px;
+    text-align: start;
+    outline: none;
+    border: none;
+    background-color: rgba(255, 223, 223, 0.39);
+    padding-left: 1.5rem;
+}
+
+.todoForm{
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.addTodo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    width: 130px;
+    background-color:rgba(255, 223, 223, 0.39);
+}
+
+
+.addBtn{
+    color: green;
+    font-size: 1.8rem;
+    transition: transform 0.1s;
+    
+}
+.addBtn:hover{
+    transform: scale(1.3);
+}
+
+.noTodosContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.smileIcon{
+    font-size: 10rem;
+    margin-top: 1rem;
+}
+
+@media(max-width:620px){
+    .todoFormInput{
+        width: 370px; 
+    }
+    .todoForm{
+        justify-content: start;
+    }
+}
+@media(max-width:520px){
+    .todoFormInput{
+        width: 230px; 
+        font-size: 25px;
+    }
+    
+}

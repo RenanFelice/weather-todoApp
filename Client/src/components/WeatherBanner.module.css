@@ -1,0 +1,88 @@
+.imgContainer {
+    width: 600px;
+    height: 250px;
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    padding-top: 3rem;
+    
+}
+
+.imgContainer::before{
+    content: "";
+    background-image: url('../images/weatherBg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    z-index: -9999;
+    opacity: 0.75;
+}
+
+.infoContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.weatherIcon img{
+    width: 70px;
+    margin-left: 1rem;
+}
+
+.timeNow{
+    font-size: 4rem;
+}
+
+.weatherStatus{
+    text-transform: capitalize;
+    text-align: center;
+}
+
+
+.weatherTemp{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+}
+
+.cityName{
+    text-align: center;
+}
+
+@media(max-width:620px){
+    .imgContainer{
+        width: 500px;
+
+    }
+}
+
+@media(max-width:520px){
+    .imgContainer{
+        width: 360px;
+
+    }
+
+    .timeNow{
+        font-size: 2.5rem;
+    }
+
+    .cityName, .weatherStatus{
+        font-size: 1.5rem;
+    }
+   .weatherTemp h1 {
+       font-size: 3rem;
+   }
+   .weatherIcon{
+       font-size: 1rem;
+   }
+
+   .imgContainer{
+       height: 200px;
+   }
+}
