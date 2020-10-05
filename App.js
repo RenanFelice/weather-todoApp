@@ -5,6 +5,8 @@ const db = require('./config/database')
 
 
 
+app.use('/todos', require('./routes/todos'))
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })

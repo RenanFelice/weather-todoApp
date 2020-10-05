@@ -2,7 +2,10 @@ const { Sequelize } = require('sequelize');
 
 const db = new Sequelize('weathertodoapp', 'root', 'renan', {
     host: 'localhost',
-    dialect: 'mysql'
+    dialect: 'mysql',
+    define: {
+      timestamps: false
+  }
   });
   
   (async function () {
@@ -15,3 +18,5 @@ const db = new Sequelize('weathertodoapp', 'root', 'renan', {
   })()
 
   module.exports = db;
+
+  

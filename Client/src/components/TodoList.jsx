@@ -1,16 +1,24 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import styles from './TodoList.module.css'
-import { v4 as uuidv4 } from 'uuid';
 import Todo from './Todo'
 import cx from 'classnames'
 import useTodoHooks from '../hooks/todoHooks'
 import { Tooltip } from '@material-ui/core'
 import axios from 'axios'
 
+
 function TodoList() {
     const [task, setTask] = useState('')
-    const [todos, addTodo, deleteTodo, editTodo] = useTodoHooks([{ task: 'Estudar', id: uuidv4() }, { task: 'Ir no mercado', id: uuidv4() }])
+    const [todos, addTodo, deleteTodo, editTodo, setTodos] = useTodoHooks([])
     const addTodoInput = useRef(null)
+    console.log(todos)
+
+    useEffect(() => {
+        (async function() {
+            setTodos(await axios('/todos').then(todos => todos.data))
+        })()
+    }, [setTodos])
+    
 
 
     return (

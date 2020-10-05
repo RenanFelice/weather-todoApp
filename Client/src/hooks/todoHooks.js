@@ -2,8 +2,9 @@ import {useState} from 'react'
 import { v4 as uuidv4 } from 'uuid';
 
 
+
 function useTodoHooks(initVal) {
-    const [todos, setTodos] = useState(initVal) 
+    const [todos, setTodos] = useState(initVal)
 
     const addTodo = (newTodo) => {
         if(!newTodo || newTodo === ' ') return
@@ -28,7 +29,7 @@ function useTodoHooks(initVal) {
         }))
     }
 
-    return [todos, addTodo, deleteTodo, editTodo]
+    return [todos, addTodo, deleteTodo, editTodo, setTodos]
 }
 
 export default useTodoHooks
