@@ -11,9 +11,9 @@ const db = new Sequelize('weathertodoapp', 'root', 'renan', {
   (async function () {
     try {
       await db.authenticate();
-      console.log('database funcionando corretamente!!!! colocou a senha correta aeeee');
+      console.log('Database conectado com sucesso!');
     } catch (error) {
-      console.error('Alanzei.. deu ruim:', error);
+      console.error('Falha ao conectar com o DB:', error);
     }
   })()
 
