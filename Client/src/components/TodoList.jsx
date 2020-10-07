@@ -11,7 +11,7 @@ function TodoList() {
     const [task, setTask] = useState('')
     const [todos, addTodo, deleteTodo, editTodo, setTodos] = useTodoHooks([])
     const addTodoInput = useRef(null)
-    console.log(todos)
+
 
     useEffect(() => {
         (async function() {

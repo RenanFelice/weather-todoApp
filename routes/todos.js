@@ -1,26 +1,31 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../config/database');
 const Todo = require('../models/Todo');
+
+
+
+
 
 
 // Get todo List
 router.get('/', (req, res) => {
     Todo.findAll()
-    .then(todos => {
-        res.json(todos)
-    })
-    .catch(err => console.log('errouuuuu', err ))
-   
+        .then(todos => {
+            res.json(todos)
+        })
+        .catch(err => console.log('errouuuuu', err))
+
 })
 
 // Add todo
-router.get('/add/:newtodo', (req, res) => {
+
+router.post('/add/newtodo', async (req, res) => {
+
 
     Todo.create({
-        task:req.params.newtodo
+        task: req.body.task
     })
-    .then(todo => console.log(todo))
+    .then(response => res.send(response.dataValues))    
     .catch(err => console.log('erro ao adicionar todo', err))
 })
 
@@ -29,9 +34,23 @@ router.get('/add/:newtodo', (req, res) => {
 router.get('/delete/:id', (req, res) => {
     Todo.destroy({
         where: {
-          id: req.params.id
+            id: req.params.id
         }
-      });
+    })
+    .catch(err => console.log('erro ao deletar', err))
+    
+})
+
+
+// Edit todo
+
+router.post('/edit', (req, res) => {
+    Todo.update({ task: req.body.task }, {
+        where: {
+          id: req.body.id
+        }
+      })
+      .catch(err => console.log('erro ao editar', err))
 })
 
 
