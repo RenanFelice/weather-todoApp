@@ -36,15 +36,7 @@ function useTodoHooks(initVal) {
 
     }
 
-    const deleteTodo = async (id) => {
-
-        await axios(`/todos/delete/${id}`).then(
-            setTodos(todos.filter(todo => todo.id !== id))
-        )
-
-    }
-
-    const editTodo = async (id, newTask) => {
+    const editTodo = async (id, newTask, setEditText, oldTask) => {
 
         await axios({
             method: 'post',
@@ -54,8 +46,12 @@ function useTodoHooks(initVal) {
                 task: newTask,
                 id
             }
-        }).then(
-            
+        }).then(res => {
+            if (res.data.err) {
+                alert(res.data.err)
+                setEditText(oldTask)
+                return
+            }
             setTodos(todos.map(todo => {
                 if (todo.id === id) {
                     return { task: newTask, id }
@@ -63,10 +59,20 @@ function useTodoHooks(initVal) {
                     return todo
                 }
             }))
-        
+        }
 
         ).catch(err => console.log('erro ao editar', err))
     }
+
+    const deleteTodo = async (id) => {
+
+        await axios(`/todos/delete/${id}`).then(
+            setTodos(todos.filter(todo => todo.id !== id))
+        )
+
+    }
+
+
 
     return [todos, addTodo, deleteTodo, editTodo, setTodos]
 }

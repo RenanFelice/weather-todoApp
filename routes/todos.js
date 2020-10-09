@@ -5,8 +5,6 @@ const Todo = require('../models/Todo');
 
 
 
-
-
 // Get todo List
 router.get('/', (req, res) => {
     Todo.findAll()
@@ -27,7 +25,7 @@ router.post('/add/newtodo', async (req, res) => {
     if (!newTask) {
         errors.push({ text: 'Por favor, insira um ToDo' })
     }
-    console.log(errors)
+
     if (errors.length > 0) {
         res.send({ err: errors[0].text })
     } else {
@@ -37,18 +35,6 @@ router.post('/add/newtodo', async (req, res) => {
             .then(response => res.send(response.dataValues))
             .catch(err => console.log('erro ao adicionar todo', err))
     }
-
-})
-
-// Delete todo
-
-router.get('/delete/:id', (req, res) => {
-    Todo.destroy({
-        where: {
-            id: req.params.id
-        }
-    })
-        .catch(err => console.log('erro ao deletar', err))
 
 })
 
@@ -71,12 +57,23 @@ router.post('/edit', (req, res) => {
                 id: req.body.id
             }
         })
+            .then(response => res.send(response.dataValues))
             .catch(err => console.log('erro ao editar', err))
     }
+})
 
+// Delete todo
 
+router.get('/delete/:id', (req, res) => {
+    Todo.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+        .catch(err => console.log('erro ao deletar', err))
 
 })
+
 
 
 module.exports = router;

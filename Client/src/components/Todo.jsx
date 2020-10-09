@@ -14,7 +14,7 @@ function Todo({ todo, deleteTodo, editTodo }) {
                 <div className={styles.TodoContainer}>
                     <form onSubmit={e => {
                         e.preventDefault()
-                        editTodo(todo.id, editText)
+                        editTodo(todo.id, editText, setEditText, todo.task)
                         setEditing(false)
                     }}>
                         <input className={styles.editForm}
@@ -29,7 +29,7 @@ function Todo({ todo, deleteTodo, editTodo }) {
                     <div className={styles.iconsContainer}>
                         <div className={styles.confirmBtn}
                             onClick={e => {
-                                editTodo(todo.id, editText)
+                                editTodo(todo.id, editText, setEditText, todo.task)
                                 setEditing(false)
                             }}>
                             <Tooltip placement='top' title="Confirmar">
