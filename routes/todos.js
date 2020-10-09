@@ -20,13 +20,24 @@ router.get('/', (req, res) => {
 // Add todo
 
 router.post('/add/newtodo', async (req, res) => {
+    let newTask = req.body.task;
+    let errors = [];
+    //validação
 
+    if (!newTask) {
+        errors.push({ text: 'Por favor, insira um ToDo' })
+    }
+    console.log(errors)
+    if (errors.length > 0) {
+        res.send({ err: errors[0].text })
+    } else {
+        Todo.create({
+            task: newTask
+        })
+            .then(response => res.send(response.dataValues))
+            .catch(err => console.log('erro ao adicionar todo', err))
+    }
 
-    Todo.create({
-        task: req.body.task
-    })
-    .then(response => res.send(response.dataValues))    
-    .catch(err => console.log('erro ao adicionar todo', err))
 })
 
 // Delete todo
@@ -37,20 +48,34 @@ router.get('/delete/:id', (req, res) => {
             id: req.params.id
         }
     })
-    .catch(err => console.log('erro ao deletar', err))
-    
+        .catch(err => console.log('erro ao deletar', err))
+
 })
 
 
 // Edit todo
 
 router.post('/edit', (req, res) => {
-    Todo.update({ task: req.body.task }, {
-        where: {
-          id: req.body.id
-        }
-      })
-      .catch(err => console.log('erro ao editar', err))
+    let editedTodo = req.body.task;
+    let errors = [];
+
+    if (editedTodo.length > 25) {
+        errors.push({ text: 'Todo tem mais de 25 caracteres' })
+    }
+
+    if (errors.length > 0) {
+        res.send({ err: errors[0].text })
+    } else {
+        Todo.update({ task: editedTodo }, {
+            where: {
+                id: req.body.id
+            }
+        })
+            .catch(err => console.log('erro ao editar', err))
+    }
+
+
+
 })
 
 

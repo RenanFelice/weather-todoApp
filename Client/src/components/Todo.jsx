@@ -20,6 +20,7 @@ function Todo({ todo, deleteTodo, editTodo }) {
                         <input className={styles.editForm}
                             ref={editInputEl}
                             value={editText}
+                            maxLength={25}
                             onChange={e => {
                                 setEditText(e.target.value)
                             }}

@@ -23,7 +23,10 @@ function useTodoHooks(initVal) {
                 task: newTodo
             }
         }).then(res => {
-
+            if (res.data.err) {
+                alert(res.data.err)
+                return
+            }
             let newTodosArr = todos.map(todo => {
                 return { task: todo.task, id: todo.id, last: false }
             })
@@ -52,6 +55,7 @@ function useTodoHooks(initVal) {
                 id
             }
         }).then(
+            
             setTodos(todos.map(todo => {
                 if (todo.id === id) {
                     return { task: newTask, id }
@@ -59,6 +63,8 @@ function useTodoHooks(initVal) {
                     return todo
                 }
             }))
+        
+
         ).catch(err => console.log('erro ao editar', err))
     }
 
@@ -66,3 +72,5 @@ function useTodoHooks(initVal) {
 }
 
 export default useTodoHooks
+
+
