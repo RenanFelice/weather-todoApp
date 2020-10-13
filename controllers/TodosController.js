@@ -10,7 +10,7 @@ module.exports = {
 
     },
 
-    addTodo: async (req, res) => {
+    addTodo: (req, res) => {
         let newTask = req.body.task;
         let errors = [];
         //validação
