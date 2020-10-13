@@ -18,4 +18,4 @@ Api.openweathermap.org (para informação da previsão de tempo no banner)
 https://www.bigdatacloud.com/ (geolocalização)
 
 
-![Image](.imagemReadme.jpg)
+![Image](./imagemReadme.jpg)
