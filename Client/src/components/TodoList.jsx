@@ -10,15 +10,34 @@ import axios from 'axios'
 function TodoList() {
     const [task, setTask] = useState('')
     const [todos, addTodo, deleteTodo, editTodo, setTodos] = useTodoHooks([])
+    const [isTodosLoading, setIsTodosLoading] = useState(false)
     const addTodoInput = useRef(null)
+    let result;
 
 
     useEffect(() => {
-        (async function() {
-            setTodos(await axios('/todos').then(todos => todos.data))
-        })()
+        const fetchTodos = async () => {
+            try {
+                setIsTodosLoading(true)
+                const data = await axios('/todos').then(todos => todos.data)
+                setTodos(data)
+            } catch (error) {
+                console.log(error)
+            } finally {
+                setIsTodosLoading(false)
+            }
+
+        }
+        fetchTodos()
     }, [setTodos])
-    
+
+    result = todos.length ?
+        todos.map(todo => <Todo key={todo.id} todo={todo} deleteTodo={deleteTodo} editTodo={editTodo} />)
+        :
+        <div className={styles.noTodosContainer}>
+            <h1 className={styles.noTodos}>Sem tarefas</h1>
+            <i className={cx("far fa-smile-beam", styles.smileIcon)}></i>
+        </div>
 
 
     return (
@@ -51,14 +70,10 @@ function TodoList() {
                 </div>
             </form>
             <ul>
-                {todos.length ?
-                    todos.map(todo => <Todo key={todo.id} todo={todo} deleteTodo={deleteTodo} editTodo={editTodo} />)
-                    :
-                    <div className={styles.noTodosContainer}>
-                        <h1 className={styles.noTodos}>Sem tarefas</h1>
-                        <i className={cx("far fa-smile-beam", styles.smileIcon)}></i>
-                    </div>
-                }
+                {isTodosLoading
+                    ?
+                    <div className={styles.loader}></div>
+                    : result}
             </ul>
         </div>
     )
