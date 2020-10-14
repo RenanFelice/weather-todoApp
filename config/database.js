@@ -1,8 +1,9 @@
 const { Sequelize } = require('sequelize');
+require('dotenv').config();
 
-const db = new Sequelize('weathertodoapp', 'root', 'renan', {
+const db = new Sequelize('weathertodoapp', process.env.DB_USER, process.env.DB_PASSWORD, {
     host: 'localhost',
-    dialect: 'mysql',
+    dialect: process.env.DB_DIALECT,
     define: {
       timestamps: false
   }

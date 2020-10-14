@@ -1,64 +1,70 @@
 const Todo = require('../models/Todo');
 
 module.exports = {
-    getTodos: (req, res) => {
-        Todo.findAll()
-            .then(todos => {
-                res.json(todos)
-            })
-            .catch(err => console.log('erro ao pegar lista de todos', err))
+    getTodos: async (req, res) => {
+        try {
+            await Todo.findAll()
+                .then(todos => {
+                    res.json(todos)
+                })
+        } catch (error) {
+            console.log('erro ao pegar lista de todos', error)
+        }
+
+
 
     },
 
-    addTodo: (req, res) => {
+    addTodo: async (req, res) => {
         let newTask = req.body.task;
-        let errors = [];
-        //validação
+
 
         if (!newTask) {
-            errors.push({ text: 'Por favor, insira um ToDo' })
-        }
+            res.send({ err: 'Por favor, insira um ToDo' })
 
-        if (errors.length > 0) {
-            res.send({ err: errors[0].text })
         } else {
-            Todo.create({
-                task: newTask
-            })
-                .then(response => res.send(response.dataValues))
-                .catch(err => console.log('erro ao adicionar todo', err))
+            try {
+                Todo.create({
+                    task: newTask
+                })
+                    .then(response => res.send(response.dataValues))
+            } catch (error) {
+                console.log('erro ao adicionar todo', error)
+            }
         }
 
     },
 
-    editTodo: (req, res) => {
+    editTodo: async (req, res) => {
         let editedTodo = req.body.task;
-        let errors = [];
 
         if (editedTodo.length > 25) {
-            errors.push({ text: 'Todo tem mais de 25 caracteres' })
-        }
-
-        if (errors.length > 0) {
-            res.send({ err: errors[0].text })
+            res.send({ err:'Todo tem mais de 25 caracteres' })
         } else {
-            Todo.update({ task: editedTodo }, {
-                where: {
-                    id: req.body.id
-                }
-            })
-                .then(response => res.send(response.dataValues))
-                .catch(err => console.log('erro ao editar todo', err))
+            try {
+                await Todo.update({ task: editedTodo }, {
+                    where: {
+                        id: req.body.id
+                    }
+                })
+                    .then(response => res.send(response.dataValues))
+            } catch (error) {
+                console.log('erro ao editar todo', error)
+            }
+
         }
     },
 
-    deleteTodo: (req, res) => {
-        Todo.destroy({
-            where: {
-                id: req.params.id
-            }
-        })
-            .catch(err => console.log('erro ao deletar todo', err))
+    deleteTodo: async (req, res) => {
+        try {
+            await Todo.destroy({
+                where: {
+                    id: req.params.id
+                }
+            })
+        } catch (error) {
+            console.log('erro ao deletar todo', error)
+        }
 
     }
 }

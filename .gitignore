@@ -1,3 +1,4 @@
 /node_modules
 /Client/node_modules
 /Client/debug.log
+.env

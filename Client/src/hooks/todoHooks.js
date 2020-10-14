@@ -65,10 +65,14 @@ function useTodoHooks(initVal) {
     }
 
     const deleteTodo = async (id) => {
-
-        await axios(`/todos/delete/${id}`).then(
-            setTodos(todos.filter(todo => todo.id !== id))
-        )
+        try {
+            await axios(`/todos/delete/${id}`).then(
+                setTodos(todos.filter(todo => todo.id !== id))
+            )
+        } catch (error) {
+            console.log(error)
+        }
+        
 
     }
 
